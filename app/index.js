@@ -1,3 +1,2 @@
-import {test} from './dep';
 
-console.log(test);
+console.log("this is the app");
