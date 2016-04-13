@@ -4,4 +4,8 @@ export class Class {
         this.instructors = instructors;
         this.students = students;
     }
+    
+    static fromJson(data) {
+        return new Class(data.name, data.instructors, data.students);
+    }
 }

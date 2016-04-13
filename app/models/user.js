@@ -4,4 +4,8 @@ export class User {
         this.last = last;
         this.version = version;
     }
+    
+    static fromJson(data) {
+        return new User(data.first, data.last, data.version);
+    }
 }
