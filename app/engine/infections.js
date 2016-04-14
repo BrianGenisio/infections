@@ -1,5 +1,5 @@
 
-function flatten(sets) {
+function union(sets) {
     return sets.reduce((result, s) => new Set([...result, ...s]), new Set());
 }
 
@@ -9,17 +9,28 @@ export class Infections {
     }
     
     fromUser(id) {
-        const firstGenerationIds = this.singleGeneration(id);
-        return this.nextGeneration(firstGenerationIds);
+        return this.fromUsers([id]);
     }
     
-    singleGeneration(id) {
+    fromUsers(ids) {
+        let currentGeneration = new Set(ids);
+        let nextGeneration = this.connections(currentGeneration);
+        
+        while(nextGeneration.size > currentGeneration.size) {
+            currentGeneration = nextGeneration;
+            nextGeneration = this.connections(currentGeneration);
+        }
+        
+        return currentGeneration;
+    }
+    
+    directConnections(id) {
         const classes = this.classStore.classesForUser(id);
-        return flatten(classes.map(c => c.allUsers));
+        return union(classes.map(c => c.allUsers));
     }
     
-    nextGeneration(ids) {
-        const sets = Array.from(ids).map(id => this.singleGeneration(id));
-        return flatten(sets);
+    connections(ids) {
+        const sets = Array.from(ids).map(id => this.directConnections(id));
+        return union(sets);
     }
 }

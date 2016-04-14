@@ -26,19 +26,53 @@ describe('Infections', () => {
            
            expect(Array.from(allUsers)).toEqual([1,2,3,4,5,6]); 
        });
-   })
+   });
    
    describe('coach tree two deep', () => {
       it('traverses the tree', () => {
           const classStore = new ClassStore([
                {instructors: [1], students: [2,3,4]},
-               {instructors: [2], students: [5,6]}
+               {instructors: [2], students: [10,11]}
            ]);
            const infections = new Infections(classStore);
            
            const allUsers = infections.fromUser(1);
            
-           expect(Array.from(allUsers)).toEqual([1,2,3,4,5,6]); 
-      }) 
+           expect(Array.from(allUsers)).toEqual([1, 2,3,4, 10,11]); 
+      });
    });
+   
+   describe('coach tree three deep', () => {
+      it('traverses the tree', () => {
+          const classStore = new ClassStore([
+               {instructors: [1], students: [2,3,4]},
+               {instructors: [2], students: [10,11]},
+               {instructors: [10], students: [100]},
+               {instructors: [11], students: [200]},
+           ]);
+           const infections = new Infections(classStore);
+           
+           const allUsers = infections.fromUser(1);
+           
+           expect(Array.from(allUsers)).toEqual([1, 2,3,4, 10,11, 100, 200]); 
+      });
+   });
+   
+   describe('coach tree four deep', () => {
+      it('traverses the tree', () => {
+          const classStore = new ClassStore([
+               {instructors: [1], students: [2,3,4]},
+               {instructors: [2], students: [10,11]},
+               {instructors: [10], students: [100]},
+               {instructors: [11], students: [200]},
+               {instructors: [200], students: [1000]},
+           ]);
+           const infections = new Infections(classStore);
+           
+           const allUsers = infections.fromUser(1);
+           
+           expect(Array.from(allUsers)).toEqual([1, 2,3,4, 10,11, 100, 200, 1000]); 
+      });
+   });
+   
 });
