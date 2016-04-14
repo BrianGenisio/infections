@@ -3,6 +3,10 @@ function union(sets) {
     return sets.reduce((result, s) => new Set([...result, ...s]), new Set());
 }
 
+function difference(lhs, rhs) {
+    return new Set([...lhs].filter(x => !rhs.has(x)));
+}
+
 export class Infections {
     constructor(classStore) {
         this.classStore = classStore;
@@ -17,8 +21,9 @@ export class Infections {
         let nextGeneration = this.connections(currentGeneration);
         
         while(nextGeneration.size > currentGeneration.size) {
+            const newItems = difference(nextGeneration, currentGeneration);
             currentGeneration = nextGeneration;
-            nextGeneration = this.connections(currentGeneration);
+            nextGeneration = union([currentGeneration, this.connections(newItems)]);
         }
         
         return currentGeneration;
