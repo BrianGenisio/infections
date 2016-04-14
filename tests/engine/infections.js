@@ -29,4 +29,19 @@ describe('Infections', () => {
            });
        });
    })
+   
+   describe('coach tree two deep', () => {
+      it('traverses the tree', done => {
+          const classStore = new ClassStore([
+               {instructors: [1], students: [2,3,4]},
+               {instructors: [2], students: [5,6]}
+           ]);
+           const infections = new Infections(classStore);
+           
+           infections.fromUser(1).then(allUsers => {
+              expect(Array.from(allUsers)).toEqual([1,2,3,4,5,6]); 
+              done();
+           });
+      }) 
+   });
 });
