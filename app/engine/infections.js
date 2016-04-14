@@ -1,10 +1,14 @@
 
-function union(sets) {
-    return sets.reduce((result, s) => new Set([...result, ...s]), new Set());
-}
+import {union, difference} from '../utility/sets';
 
-function difference(lhs, rhs) {
-    return new Set([...lhs].filter(x => !rhs.has(x)));
+function directConnections(id, classStore) {
+    const classes = classStore.classesForUser(id);
+    return union(classes.map(c => c.allUsers));
+}
+    
+function connections(ids, classStore) {
+    const sets = Array.from(ids).map(id => directConnections(id, classStore));
+    return union(sets);
 }
 
 export class Infections {
@@ -18,24 +22,14 @@ export class Infections {
     
     fromUsers(ids) {
         let currentGeneration = new Set(ids);
-        let nextGeneration = this.connections(currentGeneration);
+        let nextGeneration = connections(currentGeneration, this.classStore);
         
         while(nextGeneration.size > currentGeneration.size) {
             const newItems = difference(nextGeneration, currentGeneration);
             currentGeneration = nextGeneration;
-            nextGeneration = union([currentGeneration, this.connections(newItems)]);
+            nextGeneration = union([currentGeneration, connections(newItems, this.classStore)]);
         }
         
         return currentGeneration;
-    }
-    
-    directConnections(id) {
-        const classes = this.classStore.classesForUser(id);
-        return union(classes.map(c => c.allUsers));
-    }
-    
-    connections(ids) {
-        const sets = Array.from(ids).map(id => this.directConnections(id));
-        return union(sets);
     }
 }
