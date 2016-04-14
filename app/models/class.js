@@ -10,10 +10,10 @@ export class Class {
     }
     
     get allUsers() {
-        return this.instructors.concat(this.students);
+        return new Set(this.instructors.concat(this.students));
     }
     
     hasUser(id) {
-        return this.instructors.indexOf(id) >= 0 || this.students.indexOf(id) >= 0;
+        return  this.allUsers.has(id);
     }
 }

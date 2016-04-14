@@ -1,6 +1,6 @@
 
-function flatten(arrays) {
-    return [].concat(...arrays);
+function flatten(sets) {
+    return sets.reduce((result, s) => new Set([...result, ...s]), new Set());
 }
 
 export class Infections {
