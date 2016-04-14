@@ -13,4 +13,23 @@ describe('ClassStore', () => {
             });
         }); 
     });
+    
+    describe('#classesForUser', () => {
+        const test = {};
+        
+        beforeEach(() => {
+            test.subject = new ClassStore([
+                {name: 'math', instructors: [1], students: [2,3,4]},
+                {name: 'science', instructors: [5], students: [2,3,4]},
+            ]);
+        });
+       
+        it('finds class where users are is instructor', done => {
+            test.subject.classesForUser(1).then(classes => {
+                expect(classes.length).toBe(1);
+                expect(classes[0].name).toBe('math');
+                done(); 
+            });
+        });
+    });
 });
