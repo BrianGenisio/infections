@@ -3,14 +3,13 @@ import {ClassStore} from '../../app/stores/class-store';
 
 describe('ClassStore', () => {
     describe('fetch', () => {
-        it('fetches classes', done => {
+        it('fetches classes', () => {
             const subject = new ClassStore([{ "name": "my class" }]);
             
-            subject.fetch().then(classes => {
-               expect(classes[0].name).toBe('my class');
-               expect(classes[0] instanceof Class).toBeTruthy();
-               done();
-            });
+            const classes = subject.fetch();
+            
+            expect(classes[0].name).toBe('my class');
+            expect(classes[0] instanceof Class).toBeTruthy();
         }); 
     });
     
@@ -24,12 +23,11 @@ describe('ClassStore', () => {
             ]);
         });
        
-        it('finds class where users are is instructor', done => {
-            test.subject.classesForUser(1).then(classes => {
-                expect(classes.length).toBe(1);
-                expect(classes[0].name).toBe('math');
-                done(); 
-            });
+        it('finds class where users are is instructor', () => {
+            const classes = test.subject.classesForUser(1);
+            
+            expect(classes.length).toBe(1);
+            expect(classes[0].name).toBe('math');
         });
     });
 });

@@ -12,10 +12,10 @@ export class ClassStore {
     }
     
     fetch() {
-        return Promise.resolve(this.classes);
+        return this.classes;
     }
     
     classesForUser(id) {
-        return Promise.resolve(this.classes.filter(c => c.hasUser(id)));
+        return this.classes.filter(c => c.hasUser(id));
     }
 };

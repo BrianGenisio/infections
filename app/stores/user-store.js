@@ -8,7 +8,6 @@ export class UserStore {
     }
     
     fetch() {
-        // Make an HTTP call if we had a backend
-        return Promise.resolve(this.users || []);
+        return this.users || [];
     }
 };
