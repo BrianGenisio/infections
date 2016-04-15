@@ -6,10 +6,10 @@
   "scripts": {
     "test": "testem",
     "build": "mkdir -p dist && npm run copyfiles && npm run buildjs",
-    "buildjs": "browserify app/index.js -o dist/app.js -t [ babelify ]",
+    "buildjs": "browserify app/index.js -o dist/app.js -t [ babelify, stringify ]",
     "buildtests": "globify -t babelify \"tests/**/**.js\" -o dist/tests.js",
     "copyfiles": "cp public/* dist",
-    "serve": "watchify  app/index.js -o dist/app.js -t [ babelify ] -dv & livereloadify dist & http-server ./dist",
+    "serve": "watchify  app/index.js -o dist/app.js -t [ babelify ] -t [ stringify ] -dv & livereloadify dist & http-server ./dist",
     "livereload": "livereloadify dist"
   },
   "author": "Brian Genisio",
@@ -20,8 +20,11 @@
     "browserify": "^13.0.0",
     "globify": "^1.2.1",
     "http-server": "^0.9.0",
+    "jquery": "^2.2.3",
     "livereloadify": "^2.0.0",
+    "stringify": "^5.1.0",
     "testem": "^1.6.0",
+    "vis": "^4.16.0",
     "watchify": "^3.7.0"
   }
 }
