@@ -3,27 +3,47 @@ import $ from 'jquery';
 import vis from 'vis';
 
 import template from './index.html';
+import {stubUsers, stubClasses} from './stub-data';
+
+import {UserStore} from './stores/user-store';
+import {ClassStore} from './stores/class-store';
+import {Graphs} from './engine/graphs';
+
+const userStore = new UserStore(stubUsers);
+const classStore = new ClassStore(stubClasses);
+
+const graphEngine = new Graphs(userStore, classStore);
 
 $('body').append(template);
 
 $('#main #get-infections').on('click', () => {
-    const container = $('#main .visualization')[0];
-
-    var nodes = new vis.DataSet([
-        {id: 1, label: 'Node 1'},
-        {id: 2, label: 'Node 2'},
-        {id: 3, label: 'Node 3'},
-        {id: 4, label: 'Node 4'},
-        {id: 5, label: 'Node 5'}
-    ]);
-
-    var edges = new vis.DataSet([
-        {from: 1, to: 3},
-        {from: 1, to: 2},
-        {from: 2, to: 4},
-        {from: 2, to: 5}
-    ]);
-
-    var network = new vis.Network(container, {nodes, edges}, {});
+    try {
+        drawUniverse();
+    } catch(e) {}
+    
     return false;
 });
+
+$(drawUniverse);
+
+function drawUniverse() {
+    const universeGraph = graphEngine.getUniverse();
+    drawGraph(universeGraph);
+}
+
+function drawGraph(graph) {
+    const container = $('#main .visualization')[0];
+    const nodes = new vis.DataSet(graph.nodes);
+    const edges = new vis.DataSet(graph.edges);
+    
+    const options = {
+        layout: {
+            hierarchical: true
+        },
+        edges: {
+            arrows: 'to'
+        }
+    };
+    
+    const network = new vis.Network(container, {nodes, edges}, options);
+}

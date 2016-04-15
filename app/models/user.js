@@ -1,11 +1,12 @@
 export class User {
-    constructor(first, last, version) {
+    constructor(id, first, last, version) {
+        this.id = id;
         this.first = first;
         this.last = last;
         this.version = version;
     }
     
     static fromJson(data) {
-        return new User(data.first, data.last, data.version);
+        return new User(data.id, data.first, data.last, data.version);
     }
 }
