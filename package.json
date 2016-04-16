@@ -6,7 +6,7 @@
   "scripts": {
     "test": "testem",
     "build": "mkdir -p dist && npm run copyfiles && npm run buildjs",
-    "buildjs": "browserify app/index.js -o dist/app.js -t [ babelify, stringify ]",
+    "buildjs": "browserify app/index.js -o dist/app.js -t [ babelify ] -t [ stringify ]",
     "buildtests": "globify -t babelify \"tests/**/**.js\" -o dist/tests.js",
     "copyfiles": "cp public/* dist",
     "serve": "watchify  app/index.js -o dist/app.js -t [ babelify ] -t [ stringify ] -dv & livereloadify dist & http-server ./dist",
