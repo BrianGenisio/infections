@@ -3,7 +3,7 @@ var BuildControl = require('build-control').BuildControl;
 console.log(BuildControl);
 
 var bc = new BuildControl({
-    branch: 'deploy',
+    branch: 'master',
     remote: {
         branch: 'gh-pages'
     }
