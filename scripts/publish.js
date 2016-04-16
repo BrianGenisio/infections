@@ -12,4 +12,4 @@ var bc = new BuildControl({
 bc.npm.bump()
 bc.prepublishCheck()
 bc.run()
-bc.npm.publish()
+//bc.npm.publish()
