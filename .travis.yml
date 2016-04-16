@@ -1,3 +1,6 @@
 language: node_js
-node_js:
-  - "5.1"
+node_js: "5.1"
+install:
+  npm install --no-optional
+script: npm run test-ci
+  
