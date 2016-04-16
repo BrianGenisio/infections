@@ -8,10 +8,10 @@ const stubUsers = [
     {id: 5, first: 'Mona', last: 'Dogg'},
     {id: 6, first: 'Bell', last: 'Dogg'},
     
-    {id: 7, first: 'Steve', last: 'Coffman'},
-    {id: 8, first: 'Rachael', last: 'Coffman'},
-    {id: 9, first: 'Maeve', last: 'Coffman'},
-    {id: 10, first: 'Elenor', last: 'Coffman'}
+    {id: 7, first: 'Jack', last: 'Sloffman'},
+    {id: 8, first: 'Jenny', last: 'Sloffman'},
+    {id: 9, first: 'Julie', last: 'Sloffman'},
+    {id: 10, first: 'Johnny', last: 'Sloffman'}
 ];
 
 const stubClasses = [
