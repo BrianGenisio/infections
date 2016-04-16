@@ -11,9 +11,22 @@ function connections(ids, classStore) {
     return union(sets);
 }
 
+function withinLimit(nextGeneration, currentGeneration, limit) {
+    if(!limit) return true;
+    
+    const all = union([nextGeneration, currentGeneration]);
+    
+    return all.size <= limit;
+}
+
 export class Infections {
     constructor(classStore) {
         this.classStore = classStore;
+        this.limit = 0;
+    }
+    
+    updateLimit(limit) {
+        this.limit = limit;
     }
     
     fromUser(id) {
@@ -24,7 +37,7 @@ export class Infections {
         let currentGeneration = new Set(ids);
         let nextGeneration = connections(currentGeneration, this.classStore);
         
-        while(nextGeneration.size > currentGeneration.size) {
+        while(nextGeneration.size > currentGeneration.size && withinLimit(nextGeneration, currentGeneration, this.limit)) {
             const newItems = difference(nextGeneration, currentGeneration);
             currentGeneration = nextGeneration;
             nextGeneration = union([currentGeneration, connections(newItems, this.classStore)]);

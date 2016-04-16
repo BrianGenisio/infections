@@ -75,4 +75,23 @@ describe('Infections', () => {
       });
    });
    
+   describe('limits', () => {
+      it('limits by generation', () => {
+          const classStore = new ClassStore([
+               {instructors: [1], students: [2,3,4]},
+               {instructors: [2], students: [10,11]},
+               {instructors: [10], students: [100]},
+               {instructors: [11], students: [200]},
+               {instructors: [200], students: [1000]},
+           ]);
+           const infections = new Infections(classStore);
+           infections.updateLimit(5);
+           
+           const allUsers = infections.fromUser(1);
+           
+           expect(allUsers.size).toEqual(4);
+           expect(Array.from(allUsers)).toEqual([1,2,3,4]);
+      });
+   });
+   
 });

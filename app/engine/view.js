@@ -1,15 +1,12 @@
 import vis from 'vis';
 
-import {Graphs} from '../engine/graphs';
-import {Infections} from '../engine/infections';
-
 export class ViewEngine {
-    constructor(container, userStore, classStore) {
+    constructor(container, userStore, classStore, graphEngine, infectionEngine) {
         this._container = container;
         this._userStore = userStore;
         this._classStore = classStore;
-        this._graphEngine = new Graphs(userStore, classStore);
-        this._infectionEngine = new Infections(classStore);
+        this._graphEngine = graphEngine;
+        this._infectionEngine = infectionEngine;
     }
 
     drawInfectedUsers(userId) {
