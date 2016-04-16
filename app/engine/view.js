@@ -14,10 +14,8 @@ export class ViewEngine {
 
     drawInfectedUsers(userId) {
         const infectedUserIds = [...this._infectionEngine.fromUser(userId)];
-        const infectedUsers = this._userStore.fetchUsers(infectedUserIds);
-        const infectedClasses = [...this._classStore.classesForUsers(infectedUserIds)];
-        const infectedGraph = this._graphEngine.getGraph(infectedUsers, infectedClasses);
-        this.drawGraph(infectedGraph);
+        const universeGraph = this._graphEngine.getUniverse();
+        this.drawGraph(universeGraph, userId, infectedUserIds);
     }
 
     drawUniverse() {
@@ -25,7 +23,25 @@ export class ViewEngine {
         this.drawGraph(universeGraph);
     }
 
-    drawGraph(graph) {
+    drawGraph(graph, userId, infectedUserIds) {
+        if(infectedUserIds) {
+            infectedUserIds.forEach(id => {
+                let node = graph.nodes.find(n => n.id === id);
+                if(node) {
+                    node.color = '#D2E5FF';
+                }
+            })
+        }
+        
+        if(userId) {
+            const node = graph.nodes.find(n => n.id === userId);
+            if(node) {
+                node.color = "#B2C5DF";
+                node.label = `* ${node.label} *`;
+                node.labelHighlightBold = true;
+            }
+        }
+        
         const nodes = new vis.DataSet(graph.nodes);
         const edges = new vis.DataSet(graph.edges);
         
@@ -35,6 +51,9 @@ export class ViewEngine {
             },
             edges: {
                 arrows: 'to'
+            },
+            nodes: {
+                color: "#DDD"
             }
         };
         

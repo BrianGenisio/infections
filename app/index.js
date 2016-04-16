@@ -23,10 +23,6 @@ $('#main #get-infections').on('click', () => {
     viewEngine.drawInfectedUsers(userId);
 });
 
-$('#main #show-universe').on('click', () => {
-    viewEngine.drawUniverse();
-});
-
 $(() => viewEngine.drawUniverse());
 
 
