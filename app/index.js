@@ -8,23 +8,40 @@ import {stubUsers, stubClasses} from './stub-data';
 import {UserStore} from './stores/user-store';
 import {ClassStore} from './stores/class-store';
 import {Graphs} from './engine/graphs';
+import {Infections} from './engine/infections';
 
 const userStore = new UserStore(stubUsers);
 const classStore = new ClassStore(stubClasses);
 
 const graphEngine = new Graphs(userStore, classStore);
+const infectionEngine = new Infections(classStore);
 
 $('body').append(template);
 
 $('#main #get-infections').on('click', () => {
     try {
-        drawUniverse();
+        const userId = parseInt($('#main #user-id').val());
+        
+        if(!userId) {
+            alert('Invalid user id');
+            return false;
+        }
+        
+        drawInfectedUsers(userId);
     } catch(e) {}
     
     return false;
 });
 
 $(drawUniverse);
+
+function drawInfectedUsers(userId) {
+    const infectedUserIds = [...infectionEngine.fromUser(userId)];
+    const infectedUsers = userStore.fetchUsers(infectedUserIds);
+    const infectedClasses = [...classStore.classesForUsers(infectedUserIds)];
+    const infectedGraph = graphEngine.getGraph(infectedUsers, infectedClasses);
+    drawGraph(infectedGraph);
+}
 
 function drawUniverse() {
     const universeGraph = graphEngine.getUniverse();

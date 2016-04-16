@@ -1,4 +1,6 @@
+import {union} from '../utility/sets';
 import {Class} from '../models/class';
+
 
 export class ClassStore {
     constructor(primingData) {
@@ -17,5 +19,9 @@ export class ClassStore {
     
     classesForUser(id) {
         return this.classes.filter(c => c.hasUser(id));
+    }
+    
+    classesForUsers(ids) {
+        return union(ids.map(id => this.classesForUser(id)));
     }
 };
