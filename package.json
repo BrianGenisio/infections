@@ -10,7 +10,8 @@
     "buildtests": "globify -t babelify \"tests/**/**.js\" -o dist/tests.js",
     "copyfiles": "cp public/* dist",
     "serve": "watchify  app/index.js -o dist/app.js -t [ babelify ] -t [ stringify ] -dv & livereloadify dist & http-server ./dist",
-    "livereload": "livereloadify dist"
+    "livereload": "livereloadify dist",
+    "deploy": "node scripts/publish.js"
   },
   "author": "Brian Genisio",
   "license": "MIT",
