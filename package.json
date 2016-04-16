@@ -1,6 +1,6 @@
 {
   "name": "infections",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Solves the Infections problem",
   "main": "index.js",
   "scripts": {
