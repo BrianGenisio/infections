@@ -1,12 +1,16 @@
 {
     "framework": "jasmine2",
-    "serve_files": [ "dist/tests.js" ],
+    "serve_files": [
+        "node_modules/es6-shim/es6-shim.js",
+        "dist/tests.js"
+    ],
     "src_files": [
         "./app/**/*.js",
         "./tests/**/*.js"
     ],
     "before_tests": "npm run buildtests",
     "on_exit": "rm dist/tests.js",
-    "launch_in_dev": [ "chrome" ]
+    "launch_in_dev": [ "chrome" ],
+    "launch_in_ci": [ "PhantomJS" ]
 }
 

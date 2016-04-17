@@ -1,6 +1,8 @@
 
 import $ from 'jquery';
 
+import 'es6-shim';
+
 import template from './index.html';
 import {stubUsers, stubClasses} from './stub-data';
 
