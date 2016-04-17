@@ -3,4 +3,5 @@ node_js: "5.1"
 install:
   npm install --no-optional
 script: npm run test-ci
+after_failure: "cat npm-debug.log"
   
