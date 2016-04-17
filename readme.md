@@ -1,7 +1,5 @@
 # Infections Demo
 
-**Travis:** [![Build Status](https://travis-ci.org/BrianGenisio/infections.svg?branch=master)](https://travis-ci.org/BrianGenisio/infections)
-
 ## Demo it
 This demo has been deployed (via gh-pages) to [BrianGenisio.com/infections](http://briangenisio.com/infections).
 

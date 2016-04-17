@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "testem",
-    "test-ci": "testem ci --launch PhantomJS && testem launchers",
+    "test-ci": "testem ci",
     "build": "mkdir -p dist && npm run copyfiles && npm run buildjs",
     "buildjs": "browserify app/index.js -o dist/app.js -t [ babelify ] -t [ stringify ]",
     "buildtests": "globify -t babelify \"tests/**/**.js\" -o dist/tests.js",
